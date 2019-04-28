@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+    
+        <meta charset="UTF-8">
+        <title>Hello World</title>
+       <style>
+          .active{
+            color:red;
+            font-size: 30px;
+          }
+          .normal{
+            color:green;
+            font-size: 30px;
+          }		  
+		  
+        </style>
+		
+		
+    </head>
+    <body>
+
+	
+	
+<H2>Part1 使用基本繫結</H2>
+   <div id="app">
+            {{message}}
+            {{Msg}}
+        </div>
+
+<H2>Part2 使用物件繫結</H2>
+   <div id="app2">
+ <span>物件內容:{{ myData}}</span></br>
+
+         <span>姓名:{{ myData.Name}}</span></br>
+         <label>年紀:</label>{{ myData.Age}}</br>
+            <span>地址:{{ myData.Adress}}</span></br>
+
+debug方式列出整個Data: {{ $data | json }}
+
+</div>
+
+<H2>Part3 使用V-model繫結在 input元素</H2>
+   <div id="app3">
+
+<h4>{{ message }}</h4>        
+
+ <input type="text" v-model="message" ><br>
+
+<span v-once>Vue預設會對內容進行雙向綁定，若不想這麼做的話可使用v-once這個元素屬性。
+此內容不會雙向綁定，只會呈現一次：【{{ message }}】</span><br>  
+ <h6>雙大括號的內容會以純文字的形式插入，如果想插入HTML的話要使用v-html屬性</h6>
+  <h6 >插入屬性的方式是v-bind:attr</h6>
+  <h5> v-bind 縮寫  ex: v-bind:href="url" --> :href="url" </h5>
+  <h5> v-on 縮寫  ex: v-on:click="doSomething" --> @click="doSomething" </h5>
+<div >{{ $data | json }}</div>
+</div>
+
+<H2>Part4 if else！v-show！</H2>
+   <div id="app4">
+
+ <h3 class="error">{{ score }}分</h3>
+<div v-show="score">
+   <p v-if="score >=6">Vue.js 很簡單，小菜一盤不是嗎?!</p>
+   <p v-else>繼續努力學習吧!</p>
+   <p v-if="seen">seen=true:you see me; seen=false:you can't see mee</p>
+</div>
+
+<div v-show="score >12">
+   還是要更努力喔!
+</div>
+
+ <p>你覺得vue.js簡單嗎？請輸入1~10分</p>          
+ <input type="text" v-model="score"><br>
+
+</div>
+
+<H2>Part5 如何v-on:click?</H2>
+   <div id="app5">
+<p>目前點擊：{{count}}次</p>
+     <input type="submit" value="+1" v-on:click="clickme()" >
+    <input type="submit" value="碰我"  v-on:click="Touchme()" >
+<button v-on:click="callBoss('我是小三，呼叫老大，點擊數是')">小三</button>
+<button v-on:click="callBoss('我是小四，呼叫老大')">小四</button>
+<button @click="count += 5">直接在Button增加點擊5次</button>
+  </div>
+
+<H2>Part6 v-on的其他運用, v-on:的簡寫 @</H2>
+   <div id="app6">
+            <form action="submit.html" v-on:submit="handleIt">
+                <button type="submit">飛出去</button>
+            </form>
+   <h4>另一個form，使用【v-on:】的簡寫【@】</h4>
+            <form action="submit.html" @submit.prevent="handleIt">
+                 <button type="submit" >飛不出去</button>
+            </form>
+        </div>
+
+<H2>Part7 一定要懂for loop</H2>
+   <div id="app7">
+	   <span v-for="n in 10">{{ n }}</span>
+	  <div v-for=" i in 9">
+	     <span v-for=" j in 9">
+		   [{{i}} * {{j}} = {{i*j}}]
+		 </span>
+	  </div>
+	  <h5>輸出物件: 欄位大小寫要一致</h5>
+	    <div v-for=" (item,index) in myData">
+		  <span>{{MyCom}}</span>
+		  <span>第{{index}}筆</span>
+	      <li>Name is {{item.Name}}, Age is {{item.Age}}, Adress is {{item.Address}}</li>
+		 </span>
+	    </div>
+	   <h5>畫出表格</h5>
+       <table border=2px  >
+	     <th>項次</th><th>姓名</th><th>年紀</th><th>地址</th>
+	     <tr v-for=" (it,ind) in myData">
+	       <td> {{ind}} </td><td> <a href="http://tw.yahoo.com"> {{it.Name}} </a> </td><td> {{it.Age}} </td><td> {{it.Address}} </td>
+	    </tr>
+	   </table>
+   </div>
+
+<H2>Part8 改變樣式的v-bind </H2>
+除了將data載進內容之外，vue還可以將內容link到元素屬性中:
+   <div id="app8">
+     <h3>v-bind:style</h3>
+        <div v-bind:style="{ color: myColor, fontSize: myFontSize + 'px' }">使用變數指定樣式的值</div>
+		<div v-bind:style="{ color:'blue', fontSize:'33px'}">樣式寫在div</div>
+		<div v-bind:style="myStyle">指定樣式style名稱</div>
+	 <h3>v-bind:class</h3> 
+	    <div v-bind:class="{active:IsActive,normal:IsActive2}">指定ClassName及是否啟用</div>
+    </div>
+
+<H2>Part9 ToDoList 沒辦法用，這個要再查 </H2>
+<div id="app9">
+  <input v-model="newTodo" v-on:keyup.enter="addTodo">
+  <ul>
+    <li v-for="todo in todos">
+      <span>{{ todo.text }}</span>
+      <button @click.prevent="removeTodo(todo)">Delete</button>
+    </li>
+  </ul>
+</div>
+
+<H2>Part10 自定義元件 </H2>
+<div id="app10">
+  <ol>
+    <!-- Now we provide each todo-item with the todo object    -->
+    <!-- it's representing, so that its content can be dynamic -->
+    <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+  </ol>
+</div>
+
+<H2>Part11 Computed </H2>
+<div id="app11">
+<h5>要改變v-model的內容，computed才會重新計算</H5>
+    * methods、Computed 差異<br>
+        * Computed 無法帶參數，methods 可以<br>
+        * 不確定每次都會更新，請用 Computed<br>
+        * 確定每次都會更新，就用 metdos<br>
+
+請輸入:<input type="text" v-model.number="NT" ><br>
+ 台幣換美金現在匯率:{{ Money }}
+</div>
+
+<H2>Part12 created 及 watch 應用 </H2>
+<div id="app12">
+<template v-for="branche in branches">
+ <input type="radio" 
+  :value="branche" v-model="currentBranch">
+  {{branche}}
+</template>
+<br>
+<ul v-for="row in commits.Items">
+   <li> {{row.name}},  <a :href="row.site" target="_blank">{{row.site}}</a> </li>
+</ul>
+
+</div>
+
+
+
+<hr>
+<h2>
+參考：<br>
+https://nowills.blogspot.com/search/label/%E6%95%99%E5%AD%B8 <br>
+https://nowills.blogspot.com/2016/08/vue-js-real-time.html <br>
+https://v1.vuejs.org/guide/
+https://ithelp.ithome.com.tw/articles/10184749
+https://ithelp.ithome.com.tw/articles/10185036 -->vue物件的生命週期
+https://cn.vuejs.org/v2/api/#%E6%8C%87%E4%BB%A4 ->簡體版API
+
+https://jsfiddle.net/b127dx5h/60/ -->
+</h2>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script>
+
+<script>
+
+//part1
+var v1=new Vue({
+   el:'#app',
+   data:{
+      message:'Hello World!',
+      Msg:158
+    }
+
+});
+
+//part2
+var MyData={
+    Name:'Peter'
+   ,Age:17
+   ,Address:' New Taipe City'
+}
+
+new Vue({
+   el:'#app2'
+  ,data:{
+     myData:MyData
+    }
+
+});
+
+//part3
+new Vue({
+   el:'#app3',
+   data:{
+      message:'這是和H4元素連動的',
+      Msg:158
+    }
+});
+
+//part4
+new Vue({
+   el:'#app4',
+   data:{
+      score:0
+	  ,seen: true
+    }
+
+});
+
+//part5
+new Vue({
+   el:'#app5'
+   ,data:{
+       count:0
+     }
+  ,methods:{
+     clickme:function(){ this.count+=1; }
+     ,Touchme:function(){alert('你壓碰我就會清除點擊數!'); this.count=0;}
+     ,callBoss:function(msg){alert(msg+this.count);}
+   }
+});
+
+//part6
+new Vue({
+   el:'#app6'
+   ,methods:
+    { 
+      handleIt:function(){ alert('飛起來!');}
+    }             
+});
+
+//part7
+var Orders={
+    Name:'Johe'
+   ,Age:40
+   ,Address:' New York Big Apple'
+}
+var collect=[];
+collect.push(MyData);
+collect.push(Orders);
+//part7
+new Vue({
+   el:'#app7'      
+  ,data:{
+     myData:collect
+	 ,MyCom:'天龍股份有限公司'
+    }
+	
+});
+
+
+//part8
+new Vue({
+			el:'#app8',
+			data:{
+			   myColor: 'red'
+			   ,myFontSize: 30
+			   ,myStyle:{color:'green',fontSize:'25px'}
+			   ,IsActive: false
+			   ,IsActive2: true
+			}
+        });
+
+
+//part9
+new Vue({
+  el: '#app9',
+  data: {
+    newTodo: '',
+    todos: [
+      { text: 'Add some todos' }
+    ]
+  },
+  methods: {
+    addTodo: function () {
+      var text = this.newTodo.trim()
+      if (text) {
+        this.todos.push({ text: text })
+        this.newTodo = ''
+      }
+    },
+    removeTodo: function (todo) {
+      this.todos.splice(this.todos.indexOf(todo), 1)
+    }
+  }
+})
+
+//part10
+Vue.component('todo-item', {
+  props: ['todo'],
+  template: '<li>{{ todo.text }}</li>'
+})
+new Vue({
+  el: '#app10',
+  data: {
+    groceryList: [
+      { text: 'Vegetables' },
+      { text: 'Cheese' },
+      { text: 'Whatever else humans are supposed to eat' }
+    ]
+  }
+})
+
+
+
+//part11
+new Vue({
+  el: '#app11',
+  data: {
+    NT:0
+  },
+  computed:{
+    Money:function(){
+	 return this.NT*0.65
+	 }
+   }
+})
+
+
+//part12
+var emp = '{"Items":[' +
+	'{"name":"菜鸟教程","site":"http://www.runoob.com" },' +
+	'{"name":"Google","site":"http://www.Google.com" },' +
+	'{"name":"Taobao","site":"http://www.taobao.com" }]}';
+
+var prod = '{"Items":[' +
+	'{"name":"香蕉","site":"http://www.hohoho.com" },' +
+	'{"name":"Apple","site":"https://www.apple.com" },' +
+	'{"name":"水梨","site":"http://www.hohoho.com" }]}';
+new Vue({
+  el: '#app12',
+  data: {
+    branches: ['employees', 'Products'],
+    currentBranch: 'employees',
+    commits: null
+  },
+  watch:{
+    currentBranch:"fetchData"
+  },
+  created: function (){
+    this.fetchData()
+  },
+  methods:{
+     fetchData:function(){
+       if(this.currentBranch =="employees")
+       {
+       		this.commits=JSON.parse(emp)
+       }else if(this.currentBranch =="Products")
+       {  this.commits=JSON.parse(prod) }
+     
+     }
+  
+  }
+ 
+})
+
+</script>
+
+    </body>
+</html>

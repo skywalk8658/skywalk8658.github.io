@@ -1,0 +1,6 @@
+ASP.NET Web API 文件產生器(2) - Swagger
+https://blog.kkbruce.net/2015/04/aspnet-web-api-2-swagger.html#.XBXIK1wzaM9
+
+http://kevintsengtw.blogspot.com/2015/12/swashbuckle-swagger-for-web-api.html
+
+https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio

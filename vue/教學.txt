@@ -1,0 +1,7 @@
+Vue.js 影音教學手冊 - 六角學院 (http://www.hexschool.com/?utm_source=google&utm_medium=cpc&utm_campaign=vuejs)
+https://quip.com/N3iKAEDJEVmD
+
+Vue.js 教學 - 幼幼班入門篇 (下)
+https://www.youtube.com/watch?v=yzrUSzkLQNU
+
+https://jsfiddle.net/okv0rgrk/20829/

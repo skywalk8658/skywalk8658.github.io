@@ -1,0 +1,16 @@
+
+Component的data-props-validation
+https://jsfiddle.net/upaq5kx4/4/
+
+
+Component使用InnerScript的樣版-傳遞物件
+https://jsfiddle.net/ydhtwba6/36/
+
+http://jsfiddle.net/p8ckbmh6/15/
+
+
+https://jsfiddle.net/upaq5kx4/6/
+
+
+
+
