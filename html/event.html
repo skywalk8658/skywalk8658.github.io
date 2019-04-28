@@ -1,9 +1,65 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+
   </head>
   <body>
     <h1>事件如何觸發JavaScript程式碼</h1>
     <p>三種方式將事件繫結至元件</p>
+
+    <div id="page">
+        <h1>List King</h1>
+        <h2>New Account</h2>
+        <form method="post" action="http://www.example.org/register">
+  
+          <label for="username">Create a username: </label>
+          <input type="text" id="username" onblur="checkUsername()" />
+          <div id="feedback"></div>
+  
+          <label for="password">Create a password: </label>
+          <input type="password" id="password" />
+  
+          <input type="submit" value="sign up!" />
+  
+        </form>
+
+   </div>
+   <div>
+      <h2>【HTML事件處理器】</h2>
+      <div>所有瀏覽器都支援，但是只能一個事件繫結一個函式</div>
+      <p>
+        <  input type="text"  onblur="checkUsername()" /></br>
+
+
+      </p>
+
+  </div>
+   <div>
+       <h2>【傳統的DOM事件處理器】</h2>
+       <div>所有瀏覽器都支援，但是只能一個事件繫結一個函式</div>
+       <p>
+          var el=document.getElementById("username");</br>
+          el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容</br>
+        </br>
+          function ClickUser(){</br>
+             alert("This is 使用DOM來註冊一個click事件!");</br>
+          };
+
+       </p>
+
+   </div>
+     
+   <script>
+       
+       var el=document.getElementById("username");
+       el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容
+        
+       function ClickUser(){
+          alert("This is 使用DOM來註冊一個click事件!");
+       };
+
+      //  ClickUser();//使用小括號，代表執行ClickUser變數的內容
+  </script>
+
   </body>
 </html>
