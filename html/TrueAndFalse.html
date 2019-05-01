@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <style>
+      body {
+        background-color:black;
+      }
+      
+      h1,h2,h3,h6,h4 {
+        color: white;
+        /* text-align: center; */
+      }
+
+      div,p {
+        color:peru;
+      }
+      
+      </style>
+  </head>
+  <body>
+    
+    <h1>真與假值</h1>
+    <div>Javascript裡的每一個值都可以被視為真(truchy)或假(falsy)值，物件和陣列也通常被視為真值<br>
+    </div>
+    <div>
+        <h3>假值會被視為false</h3>
+        值/說明<br>
+        【假值】<br>
+        var highScore = false; 傳統布林值 false <br>
+        var highScore = 0; 數字 0 <br>
+        var highScore = ''; NaN(不是一個數字) <br>
+        var highScore = 10/'score'; 空白值 <br>
+        var highScore ; 一個未被值定值的變數，值為undefined <br>
+        var highScore = null; <br>
+        幾乎除了上述的例子外，其餘均屬於真值<br><br>
+        <h3>真值會被視為true</h3>
+        【直值】<br>
+        var highScore = true; 傳統布林值 true <br>
+        var highScore = 1; 除了0之外的數字 <br>
+        var highScore = 'carrot'; 有內容的字串 <br>
+        var highScore = 10/5; 數字計算 <br>
+        var highScore = 'true'; 'true'或'false'字串 <br>
+        var highScore = '0'; '0'字串 <br>
+
+    </div>
+    
+
+        
+      <h1>檢測相等性與存在性</h1>
+      <div>一個物件和陣列的存在可以被視為真值，這通常可用於檢測元件是否存在<br>
+          ex:<br>
+          if(document.getElementById('header')){<br>
+              //元件存在: 執行一些工作任務<br>
+          }else{<br>
+              //元件不存在: 執行另外的工作任務<br>
+          }<br>
+
+          <h3>型別轉換</h3>
+           <p>因為型別轉換，===嚴格等於和!==嚴格不等於運算子，與==等於<br>
+              和!=不等於運算子相較，會發生無法預期的值機會較少<br>
+           </p>
+           《false、0及''(空字串)使用嚴格運算子，值不相等 》<br>
+           運算式\結果<br>
+           (false == 0 )  => true <br>
+           <font style="color:red">(false === 0 )  => false</font><br>
+           (false == '' )  => true <br>
+           <font style="color:red">(false === '' )  => false</font><br>   
+           (0 == '' )  => true <br>
+           <font style="color:red">(0 === '' )  => false</font><br> <br> 
+
+           《null及undefined均為假值，除了和本身比較，和其他值都是不相等的 》<br>
+           運算式\結果<br>
+           (undefined == null )  => true <br>
+           <font style="color:red">(undefined === null )  => false</font><br>
+           <font style="color:red">(undefined == false )  => false</font><br>
+           <font style="color:red">(null == false )  => false</font><br>
+           <font style="color:red">(null == 0 )  => false</font><br>
+           <font style="color:red">(undefined == 0 )  => false</font><br><br>
+
+           《NaN會被視為假值，與任何值都不相等，連自己都不相等(因為NaN是未定義的數值，<br>
+               兩個未定義的值無法相等)》<br>
+           運算式\結果<br>
+           (undefined == null )  => true <br>
+           <font style="color:red">(NaN == null )  => false</font><br>
+           <font style="color:red">(NaN == NaN )  => false</font><br>
+
+      </div>
+  
+
+   <script>
+       
+
+
+
+
+       var el=document.getElementById("username");
+      el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容
+       function ClickUser(){
+          console.log("username value="+this.value);
+          alert("This is 使用DOM來註冊一個click事件!");
+       };
+
+      function checkPws(){
+          console.log("Pws srcElement value="+this.event.srcElement.value);
+          alert("This is 使用HTML事件處理器屬性註冊一個blur事件!");
+      };	   
+
+        var addre=document.getElementById("address");
+        addre.addEventListener('blur',checkAddr,false);
+        addre.addEventListener('blur'
+          ,function(){checkAddr2(1999);}
+          ,false);
+        addre.addEventListener('blur',checkAddr3,false);
+        addre.addEventListener('blur'
+          ,function(e){checkAddr4(e,2500);}
+          ,false);
+        addre.addEventListener('blur',checkAddr5,false);         
+
+        function checkAddr(){
+          console.log("Address value="+this.value);
+          alert("This is 事件監聽器註冊一個blur事件!");
+        };
+        function checkAddr2(num){
+          console.log("Address2 num="+num);
+          // addre.removeEventListener('blur',checkAddr,false);
+          alert("This is 事件監聽器使用匿名函式註冊第二個blur事件!");
+        };	 
+
+        function checkAddr3(e){
+            var eSource=e.target;//事件的目標元件
+            console.log("checkAddr3 e.target value="+eSource.value);
+        };	 
+        function checkAddr4(e,num){
+            console.log("checkAddr4 num="+num +", e.target value="+e.target.value);
+        };	 
+
+        function checkAddr5(e){
+          e = e || window.event;//使用物件偵測
+          var eSource = e.target || e.srcElement;//從事件取得觸發元件
+            console.log("checkAddr5 eSource.value="+eSource.value);
+        };	 
+
+      //  ClickUser();//使用小括號，代表執行ClickUser變數的內容
+  </script>
+
+  </body>
+</html>

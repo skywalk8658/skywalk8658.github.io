@@ -1,24 +1,46 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
+    <style>
+      body {
+        background-color:black;
+      }
+      
 
+     h1,h2,h3 {
+        color: white;
+        /* text-align: center; */
+      }
+
+      div,p {
+        color:peru;
+        font-size: 18px;
+      }
+      
+      /* p {
+        font-family: verdana;
+        font-size: 20px;
+      } */
+      </style>
   </head>
   <body>
     <h1>事件如何觸發JavaScript程式碼</h1>
     <p>三種方式將事件繫結至元件</p>
 
     <div id="page">
-        <h1>List King</h1>
-        <h2>New Account</h2>
+        
+        <h2>測試 New Account</h2>
         <form method="post" action="http://www.example.org/register">
   
           <label for="username">Create a username: </label>
-          <input type="text" id="username" onblur="checkUsername()" />
-          <div id="feedback"></div>
-  
+          <input type="text" id="username"  />
+          <br>
           <label for="password">Create a password: </label>
-          <input type="password" id="password" />
-  
+          <input type="text" id="password" onblur="checkPws()" />
+          <br>
+          <label for="address">Create a Address: </label>
+          <input type="text" id="address"  />
+          <br>
           <input type="submit" value="sign up!" />
   
         </form>
@@ -28,15 +50,24 @@
       <h2>【HTML事件處理器】</h2>
       <div>所有瀏覽器都支援，但是只能一個事件繫結一個函式</div>
       <p>
-        <  input type="text"  onblur="checkUsername()" /></br>
-
-
+        < input type="password"  onblur="checkPws()" /></br>
+        函式中若要使用this(代表啟動事件的元件)，需要在繫結時帶入，<br>
+        否則this視為window物件。<br>
+        ex: 
+        < input type="password"  onblur="checkPws(this)" /></br><br>
+         沒有帶this，函式內可以使用window物件(this)去取得啟動事件的元件<br>
+        ex:
+          this.event.srcElement.value 
       </p>
 
   </div>
    <div>
        <h2>【傳統的DOM事件處理器】</h2>
-       <div>所有瀏覽器都支援，但是只能一個事件繫結一個函式</div>
+       <div>所有瀏覽器都支援，但是只能一個事件繫結一個函式，事件名稱之前會加上字詞on</br>
+         (如：onsubmit、onchange、onfocus、onblur、onmouseover等)。</br>
+         若要帶參數可使用匿名函式<br>
+        
+	   </div>
        <p>
           var el=document.getElementById("username");</br>
           el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容</br>
@@ -44,19 +75,169 @@
           function ClickUser(){</br>
              alert("This is 使用DOM來註冊一個click事件!");</br>
           };
+      <p>使用匿名函式<br>
+        el.onclick=(function(){
+          ClickUser(5);
+        });
+      </p>
 
        </p>
 
    </div>
+
+<div>
+    <h2>【事件監聽器】</h2>
+    <div>IE8或更早版本的IE瀏覽器不支援addEventListener及this，但可以支attachEvent()<br>
+       一個事件可以繫結多個函式，移除事件使用removeEventListener</br>
+       若要帶參數可使用匿名函式<br>
+    </div>
+     <p>
+        var addre=document.getElementById("address");</br>
+        addre.addEventListener('blur',checkAddr,false);
+        </br></br>
+        function checkAddr(){</br>
+          alert("This is 事件監聽器註冊一個blur事件!");</br>
+        };
+
+    </p>
+    <p>使用匿名函式註冊一個事件<br>
+      addre.addEventListener('blur'
+      ,function(){checkAddr2(1999);}
+      ,false);
+    </p>
+    <p> IE5-IE8使用的事件模組attachEvent，相容寫法如下：<br>
+      if(el.addEventListener){<br>
+        addre.addEventListener('blur',checkAddr,false);<br>
+      }else{<br>
+          //IE8之前版本的事件名稱要加上on<br>
+        addre.attachEvent('onblur',checkAddr);<br>
+      }<br>
+        
+    </p>    
+    <p> 移除事件<br>
+        addre.removeEventListener('blur',checkAddr,false);
+    </p>
+
+</div>
+
+<div>
+    <h2>【EVENT物件】</h2>
+    <div>當事件開生時，event物件會被傳遞給函式，它包含觸發事件的目標元件<br>
+         在函式中為第一個參數，函式通常使用參數名稱e來代表</br>
+       若要帶參數可使用匿名函式<br>
+
+       function checkAddr4(e,num){<br>
+           console.log("checkAddr4 num="+num);<br>
+           console.log("checkAddr4 e.target value="+e.target.value);<br>
+       };	<br>
+
+    </div>
+    <p> 不需參數的事件監聽器<br>
+        addre.addEventListener('blur',checkAddr3,false);<br>
+        function checkAddr3(e){<br>
+            var srcObj=e.target;//事件的目標元件<br>
+            console.log("checkAddr3 e.target value="+srcObj.value);<br>
+        };	 
+    </p>
+    <p> 需傳遞參數的事件監聽器<br>
+      addre.addEventListener('blur'<br>
+      ,function(e){checkAddr4(e,2500);}<br>
+      ,false);<br>
+
+      function checkAddr4(e,num){<br>
+        console.log("checkAddr4 num="+num +", e.target value="+e.target.value);<br>
+      };	 
+    </p>
+    <h2>【EVENT物件向下相容IE5-8瀏覽器】</h2>
+    <div>
+      事件無法被自動傳遞至事件處理器/監聽器函式，但會是window物件下的子物件</br>
+
+      <p> 
+          addre.addEventListener('blur',checkAddr5,false); </br> 
+          function checkAddr5(e){</br>
+            e = e || window.event; //使用物件偵測</br>
+            var eSource = e.target || e.srcElement; //從事件取得觸發元件</br>
+              console.log("checkAddr5 eSource.value="+eSource.value);</br>
+          };	 
+      </p>
+
+    </div>
+
+    <h2>【變更預設行為】</h2>
+    <div>
+      event物件具備一些方法可變更目標元件的預設行為，以及目標祖先元件對事件的反應方式</br>
+    </br>
+
+      <div> 
+        《取消元件預設行為 preventDefault()》</br>
+         if(event.preventDefault){</br>
+           event.preventDefault();</br>
+         }else{</br>
+           event.returnValue=false; //IE5-8對應方法</br>
+         }</br></br>
+         《停止事件氣泡或事件補捉進行 stopPropagation()》</br>
+         if(event.stopPropagation){</br>
+           event.stopPropagation();</br>
+         }else{</br>
+           event.cancelBubble=true; //IE5-8對應方法</br>
+         }</br></br>
+
+         《同時使用兩者》</br>
+            函式中 加上 return false;</br>
+        </div>
+
+    </div>
+
+</div>
      
    <script>
        
        var el=document.getElementById("username");
-       el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容
-        
+      el.onclick=ClickUser;//觸發el的onlick，將執行變數ClickUser的內容
        function ClickUser(){
+          console.log("username value="+this.value);
           alert("This is 使用DOM來註冊一個click事件!");
        };
+
+      function checkPws(){
+          console.log("Pws srcElement value="+this.event.srcElement.value);
+          alert("This is 使用HTML事件處理器屬性註冊一個blur事件!");
+      };	   
+
+        var addre=document.getElementById("address");
+        addre.addEventListener('blur',checkAddr,false);
+        addre.addEventListener('blur'
+          ,function(){checkAddr2(1999);}
+          ,false);
+        addre.addEventListener('blur',checkAddr3,false);
+        addre.addEventListener('blur'
+          ,function(e){checkAddr4(e,2500);}
+          ,false);
+        addre.addEventListener('blur',checkAddr5,false);         
+
+        function checkAddr(){
+          console.log("Address value="+this.value);
+          alert("This is 事件監聽器註冊一個blur事件!");
+        };
+        function checkAddr2(num){
+          console.log("Address2 num="+num);
+          // addre.removeEventListener('blur',checkAddr,false);
+          alert("This is 事件監聽器使用匿名函式註冊第二個blur事件!");
+        };	 
+
+        function checkAddr3(e){
+            var eSource=e.target;//事件的目標元件
+            console.log("checkAddr3 e.target value="+eSource.value);
+        };	 
+        function checkAddr4(e,num){
+            console.log("checkAddr4 num="+num +", e.target value="+e.target.value);
+        };	 
+
+        function checkAddr5(e){
+          e = e || window.event;//使用物件偵測
+          var eSource = e.target || e.srcElement;//從事件取得觸發元件
+            console.log("checkAddr5 eSource.value="+eSource.value);
+        };	 
 
       //  ClickUser();//使用小括號，代表執行ClickUser變數的內容
   </script>
