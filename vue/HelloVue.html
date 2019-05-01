@@ -12,8 +12,22 @@
           .normal{
             color:green;
             font-size: 30px;
+          }	
+
+          body {
+            background-color:black;
+          }
+          
+          h1,h2,h3,h4,h4,h6 {
+            color: white;
+            /* text-align: center; */
+          }
+
+          div,p {
+            color:peru;
+            font-size: 18px;
           }		  
-		  
+
         </style>
 		
 		
@@ -30,7 +44,7 @@
 
 <H2>Part2 使用物件繫結</H2>
    <div id="app2">
- <span>物件內容:{{ myData}}</span></br>
+ <span> :{{ myData}}</span></br>
 
          <span>姓名:{{ myData.Name}}</span></br>
          <label>年紀:</label>{{ myData.Age}}</br>
@@ -49,10 +63,10 @@ debug方式列出整個Data: {{ $data | json }}
 
 <span v-once>Vue預設會對內容進行雙向綁定，若不想這麼做的話可使用v-once這個元素屬性。
 此內容不會雙向綁定，只會呈現一次：【{{ message }}】</span><br>  
- <h6>雙大括號的內容會以純文字的形式插入，如果想插入HTML的話要使用v-html屬性</h6>
-  <h6 >插入屬性的方式是v-bind:attr</h6>
-  <h5> v-bind 縮寫  ex: v-bind:href="url" --> :href="url" </h5>
-  <h5> v-on 縮寫  ex: v-on:click="doSomething" --> @click="doSomething" </h5>
+ <h4>雙大括號的內容會以純文字的形式插入，如果想插入HTML的話要使用v-html屬性</h4>
+  <h4 >插入屬性的方式是v-bind:attr</h4>
+  <h4> v-bind 縮寫  ex: v-bind:href="url" --> :href="url" </h4>
+  <h4> v-on 縮寫  ex: v-on:click="doSomething" --> @click="doSomething" </h4>
 <div >{{ $data | json }}</div>
 </div>
 
@@ -104,14 +118,14 @@ debug方式列出整個Data: {{ $data | json }}
 		   [{{i}} * {{j}} = {{i*j}}]
 		 </span>
 	  </div>
-	  <h5>輸出物件: 欄位大小寫要一致</h5>
+	  <h4>輸出物件: 欄位大小寫要一致</h4>
 	    <div v-for=" (item,index) in myData">
 		  <span>{{MyCom}}</span>
 		  <span>第{{index}}筆</span>
 	      <li>Name is {{item.Name}}, Age is {{item.Age}}, Adress is {{item.Address}}</li>
 		 </span>
 	    </div>
-	   <h5>畫出表格</h5>
+	   <h4>畫出表格</h4>
        <table border=2px  >
 	     <th>項次</th><th>姓名</th><th>年紀</th><th>地址</th>
 	     <tr v-for=" (it,ind) in myData">
@@ -153,7 +167,7 @@ debug方式列出整個Data: {{ $data | json }}
 
 <H2>Part11 Computed </H2>
 <div id="app11">
-<h5>要改變v-model的內容，computed才會重新計算</H5>
+<h4>要改變v-model的內容，computed才會重新計算</h4>
     * methods、Computed 差異<br>
         * Computed 無法帶參數，methods 可以<br>
         * 不確定每次都會更新，請用 Computed<br>
