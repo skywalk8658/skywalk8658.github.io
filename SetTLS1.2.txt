@@ -1,0 +1,47 @@
+
+
+https://success.outsystems.com/Support/Enterprise_Customers/Maintenance_and_Operations/(.NET)_Enable_SSL_Protocols_for_your_Integrations_-_TLS_1.1_and_TLS_1.2
+
+https://www.inflectra.com/Support/KnowledgeBase/KB510.aspx
+Solution using Powershell
+To enable code to use the latest version of TLS (e.g. 1.2) the following registry changes may need to be made:
+•	Open Powershell and check for supported protocols by using [Net.ServicePointManager]::SecurityProtocol
+•	Run the following 2 cmdlets to set .NET Framework strong cryptography registry keys:
+•	set strong cryptography on 64 bit .Net Framework (version 4 and above)
+•	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Wow6432Node\Microsoft\.NetFramework\v4.0.30319' -Name 'SchUseStrongCrypto' -Value '1' -Type DWord
+•	set strong cryptography on 32 bit .Net Framework (version 4 and above)
+•	Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\.NetFramework\v4.0.30319' -Name 'SchUseStrongCrypto' -Value '1' -Type DWord
+•	Restart Powershell and check again for supported protocol by using [Net.ServicePointManager]::SecurityProtocol
+It should now display Tls12 as well.
+
+
+
+https://docs.microsoft.com/zh-tw/mem/configmgr/core/plan-design/security/enable-tls-1-2-client
+
+https://docs.microsoft.com/zh-tw/dotnet/framework/network-programming/tls
+
+SystemDefaultTlsVersions
+HKEY_LOCAL_MACHINE\SOFTWARE\[Wow6432Node\]Microsoft\.NETFramework\<VERSION>: SystemDefaultTlsVersions 登錄機碼具有 DWORD 類型的值。 將值設為 1 會導致您的應用程式允許作業系統選擇通訊協定。 將值設為 0 會導致您的應用程式使用由 .NET Framework 所選取的通訊協定。
+<VERSION> 必須是 v4.0.30319 (針對 .NET Framework 4 及更新版本) 或 v2.0.50727 (針對 .NET Framework 3.5)。
+若應用程式是以 .NET Framework 4.7 或更新版本作為目標，此機碼預設會設定為 1。 這是建議的安全預設值。 如果應用的目標是 .NET Framework 4.6.1 或早期版本，則金鑰預設為 0。 在此情況下，您應該明確地將它的值設定為 1。
+如需詳細資訊，請參閱 Windows 10 1511 版和 Windows Server 2016 Technical Preview 4 的累積更新：2016 年 5 月 10 日。
+有關 .NET 框架 3.5.1 的詳細資訊，請參閱支援 Windows 7 SP1 和伺服器 2008 R2 SP1 上 .NET 框架 3.5.1 中包含的 TLS 系統預設版本。
+下列 .REG 檔案會將登錄機碼及其變體設定為最安全的值：
+text複製
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v2.0.50727]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\.NETFramework\v4.0.30319]
+"SystemDefaultTlsVersions"=dword:00000001
+"SchUseStrongCrypto"=dword:00000001
