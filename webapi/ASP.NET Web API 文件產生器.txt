@@ -1,6 +1,19 @@
-ASP.NET Web API ��󲣥;�(2) - Swagger
+ASP.NET Web API ¤å¥ó²£¥Í¾¹(2) - Swagger
 https://blog.kkbruce.net/2015/04/aspnet-web-api-2-swagger.html#.XBXIK1wzaM9
 
 http://kevintsengtw.blogspot.com/2015/12/swashbuckle-swagger-for-web-api.html
 
 https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-2.2&tabs=visual-studio
+
+
+1.建立WebAPI HelpPage 
+建立WebAPI專案時，選擇 [選擇使用 Web API 範本]，就會自動建立在根目錄下的Areas資料夾
+
+2.建立WebAPI HelpPage簡易測試頁面 Simple Test Client to ASP,NET Web API Help Page
+在NuGet中搜尋安裝 webapitest，說明為 A sample Test Client for ASP.NET WebAPI
+
+並修改Api.cshtml加入下面兩段
+@Html.DisplayForModel("TestClientDialogs")
+@section Scripts {
+    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+    @Html.DisplayForMo
