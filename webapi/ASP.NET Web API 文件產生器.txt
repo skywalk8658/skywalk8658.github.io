@@ -7,13 +7,16 @@ https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swas
 
 
 1.建立WebAPI HelpPage 
-建立WebAPI專案時，選擇 [選擇使用 Web API 範本]，就會自動建立在根目錄下的Areas資料夾
+ 1.1 建立WebAPI專案時，選擇 [選擇使用 Web API 範本]，就會自動建立在根目錄下的Areas資料夾
+ 1.2 勾選 專案>屬性>建置>輸出 > XML文件檔案
+ 1.3 程式碼要加上summary注解標籤
+ 參考：https://kevintsengtw.blogspot.com/2015/12/aspnet-web-api-help-page.html
 
 2.建立WebAPI HelpPage簡易測試頁面 Simple Test Client to ASP,NET Web API Help Page
-在NuGet中搜尋安裝 webapitest，說明為 A sample Test Client for ASP.NET WebAPI
+ 2.1在NuGet中搜尋安裝 webapitest，說明為 A sample Test Client for ASP.NET WebAPI
 
-並修改Api.cshtml加入下面兩段
-@Html.DisplayForModel("TestClientDialogs")
-@section Scripts {
-    <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
-    @Html.DisplayForMo
+ 2.2並修改Api.cshtml加入下面兩段
+    @Html.DisplayForModel("TestClientDialogs")
+    @section Scripts {
+        <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
+        @Html.DisplayForMo
