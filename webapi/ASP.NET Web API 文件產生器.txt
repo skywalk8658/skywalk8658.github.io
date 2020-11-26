@@ -16,7 +16,10 @@ https://docs.microsoft.com/zh-tw/aspnet/core/tutorials/getting-started-with-swas
  2.1在NuGet中搜尋安裝 webapitest，說明為 A sample Test Client for ASP.NET WebAPI
 
  2.2並修改Api.cshtml加入下面兩段
-    @Html.DisplayForModel("TestClientDialogs")
-    @section Scripts {
-        <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
-        @Html.DisplayForMo
+
+@Html.DisplayForModel("TestClientDialogs")  
+@section Scripts  
+{  
+<link href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" type="text/css" />  
+@Html.DisplayForModel("TestClientReferences")  
+} 
